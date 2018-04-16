@@ -1,6 +1,8 @@
 #version 150 core
 
 in vec2 a_CornerZeroToOne;
+in vec2 a_PositionWithinWindowInPixels;
+in vec2 a_SizeInPixels;
 
 uniform Properties {
     vec2 u_WindowSizeInPixels;
@@ -8,11 +10,16 @@ uniform Properties {
 
 out vec2 v_TexCoord;
 
-vec2 coord_to_screen_space(vec2 coord) {
-    return vec2(coord.x * 2 - 1, 1 - coord.y * 2);
-}
-
 void main() {
+
+    vec2 pixel_offset = a_CornerZeroToOne * a_SizeInPixels;
+    vec2 pixel_coord = a_PositionWithinWindowInPixels + pixel_offset;
+
+    vec2 screen_coord = vec2(
+        pixel_coord.x / u_WindowSizeInPixels.x * 2 - 1,
+        1 - pixel_coord.y / u_WindowSizeInPixels.y * 2);
+
     v_TexCoord = a_CornerZeroToOne;
-    gl_Position = vec4(coord_to_screen_space(a_CornerZeroToOne), 0, 1);
+
+    gl_Position = vec4(screen_coord, 0, 1);
 }
