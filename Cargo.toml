@@ -4,8 +4,8 @@ version = "0.1.0"
 authors = ["Stephen Sherratt <stephen@sherra.tt>"]
 
 [dependencies]
-image = "0.18"
+image = "0.19"
 gfx = "0.17"
 gfx_device_gl = "0.15"
-gfx_window_glutin = "0.21"
-glutin = "0.13"
+gfx_window_glutin = "0.23"
+glutin = "0.15"
